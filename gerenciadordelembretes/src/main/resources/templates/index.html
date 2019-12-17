@@ -29,7 +29,7 @@
                         <p class="card-text" th:text="${lembrete.data}">data</p>
                       <p class="card-text" th:text="${lembrete.descricao}">Texto texto texto texto texto texto texto texto texto texto texto.</p>
                       
-                      <p class="text-right" style="font-size: 18pt;"><a href="#" class="text-right" style="color: white;">
+                      <p class="text-right" style="font-size: 18pt;"><a th:href="'/deletar/' + ${lembrete.id}" class="text-right" style="color: white;">
                         <span class="glyphicon glyphicon-trash"></span>
                       </a></p>
                     </div>
