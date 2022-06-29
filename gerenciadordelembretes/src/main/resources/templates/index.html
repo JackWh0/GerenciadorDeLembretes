@@ -7,29 +7,31 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css" type="text/css">
     <title>Gerenciador de Lembretes</title>
 </head>
-<body>
-    <div class="container mt-3">
+<body class="background">
+    <div class="container mt-4">
         <div class="row d-flex justify-content-center">
-            <h1>Lembretes</h1>
-        </div>
-        <div class="container">
-            <div class="row">
-                <a href="/adicionarLembrete" class="btn bg-dark btn-lg" style="color: white;">
-                    <span class="glyphicon glyphicon-plus"></span> Novo 
-                  </a>
-            </div>
+            <h1 class="text-white">Lembretes</h1>
         </div>
         <div class="row mt-3 d-flex justify-content-center">
-            <div class="mr-2 mt-2" th:each="lembrete : ${lembretes}">
-                <div class="card text-white bg-success" style="max-width: 18rem;">
-                    <div class="card-header text-center"><h4 th:text="${lembrete.titulo}">Título</h4></div>
+                <div class="col-sm-3">
+                    <a href="/adicionarLembrete" class="btn bg-primary btn-block" style="color: white;">
+                        <span class="glyphicon glyphicon-plus"></span> <b>Criar Novo</b>
+                    </a>
+            </div>
+        </div>
+        <hr>
+        <div class="row mt-4 d-flex justify-content-center">
+            <div class="mr-2 mt-2 w-50" th:each="lembrete : ${lembretes}">
+                <div class="card reminder_bg">
+                    <div class="card-header text-center"><h4 class="font-weight-bold" th:text="${lembrete.titulo}">Título</h4></div>
                     <div class="card-body text-justify">
-                        <p class="card-text" th:text="${lembrete.data}">data</p>
+                        <p class="card-text text-center" th:text="${#dates.format(lembrete.data, 'dd/MM/yyyy')}" id="data">data</p>
                       <p class="card-text" th:text="${lembrete.descricao}">Texto texto texto texto texto texto texto texto texto texto texto.</p>
-                      
-                      <p class="text-right" style="font-size: 18pt;"><a th:href="'/deletar/' + ${lembrete.id}" class="text-right" style="color: white;">
+                      <hr>
+                      <p class="text-right" style="font-size: 18pt;"><a th:href="'/deletar/' + ${lembrete.id}" class="text-right">
                         <span class="glyphicon glyphicon-trash"></span>
                       </a></p>
                     </div>
@@ -38,5 +40,6 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="js/form.js"></script>
 </body>
 </html>
