@@ -16,7 +16,7 @@ public class Lembrete{
     private Long id;
     private String titulo;
     private String descricao;
-    @DateTimeFormat(pattern = "YYYY-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
 
     public Long getId() {
