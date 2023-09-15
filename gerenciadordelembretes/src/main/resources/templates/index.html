@@ -1,45 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/index.css" type="text/css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/index.css" type="text/css" />
     <title>Gerenciador de Lembretes</title>
 </head>
+
 <body class="background">
     <div class="container mt-4">
         <div class="row d-flex justify-content-center">
             <h1 class="text-white">Lembretes</h1>
         </div>
         <div class="row mt-3 d-flex justify-content-center">
-                <div class="col-sm-3">
-                    <a href="/adicionarLembrete" class="btn bg-primary btn-block" style="color: white;">
-                        <span class="glyphicon glyphicon-plus"></span> <b>Criar Novo</b>
-                    </a>
+            <div class="col-sm-6 col-md-3">
+                <a href="/adicionarLembrete" class="btn bg-primary btn-block" style="color: white">
+                    <span class="fa fa-plus"></span> <b>Criar Novo</b>
+                </a>
             </div>
         </div>
-        <hr>
-        <div class="row mt-4 d-flex justify-content-center">
-            <div class="mr-2 mt-2 w-50" th:each="lembrete : ${lembretes}">
-                <div class="card reminder_bg">
-                    <div class="card-header text-center"><h4 class="font-weight-bold" th:text="${lembrete.titulo}">Título</h4></div>
-                    <div class="card-body text-justify">
-                        <p class="card-text text-center" th:text="${#dates.format(lembrete.data, 'dd/MM/yyyy')}" id="data">data</p>
-                      <p class="card-text" th:text="${lembrete.descricao}">Texto texto texto texto texto texto texto texto texto texto texto.</p>
-                      <hr>
-                      <p class="text-right" style="font-size: 18pt;"><a th:href="'/deletar/' + ${lembrete.id}" class="text-right">
-                        <span class="glyphicon glyphicon-trash"></span>
-                      </a></p>
+        <hr />
+        <div id="accordion">
+            <div th:each="lembrete : ${lembretes}">
+                <div class="card bg-light my-1">
+                    <div class="card-header" th:id="${lembrete.id}">
+                        <h5 class="mb-0 row">
+                            <span class="btn text-primary text-decoration-none font-weight-bold" data-toggle="collapse"
+                                th:data-target="'#'+ ${lembrete.titulo}" th:aria-controls="${lembrete.titulo}"
+                                aria-expanded="true">
+                                <span class="badge badge-primary"><span class=" fa fa-calendar-alt"></span>
+                                    <span th:text="${#dates.format(lembrete.data, 'dd/MM/yyyy')}" id="data"></span>
+                                </span><span th:text="' - '+${lembrete.titulo}"></span>
+                            </span>
+                        </h5>
                     </div>
-
-                  </div>
+                    <div th:id="${lembrete.titulo}" class="collapse" th:aria-labelledby="${lembrete.id}"
+                        data-parent="#accordion">
+                        <div class="px-5 py-4">
+                            <div class="row mt-2 justify-content-start">
+                                <p class="w-100 text-justify" th:text="${lembrete.descricao}">
+                                </p>
+                                <hr/>
+                            </div>
+                            <div class="row mb-1 mt-2">
+                                <div class="col-6 text-center border bg-dark p-2">
+                                    <a class="text-white" th:href="'/form-edicao/' + ${lembrete.id}">
+                                        <span class="text-center fa fa-edit"></span>
+                                        <span> Editar</span>
+                                    </a>
+                                </div>
+                                <div class="col-6 text-center border bg-danger p-2">
+                                    <a class="text-white" th:href="'/deletar/' + ${lembrete.id}">
+                                        <span class="fa fa-trash"></span>
+                                        <span> Apagar</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script type="text/javascript" src="js/form.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
